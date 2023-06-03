@@ -1,0 +1,44 @@
+name: build
+on:
+  workflow_dispatch:
+  
+permissions:
+  contents: write
+  
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Checkout submodules
+        run: git submodule update --init --recursive --remote
+
+      - name: Download latest lists
+        run: |
+          curl -L -o ./V2rayNG/app/libs/libv2ray.aar https://github.com/hiddify/AndroidLibXrayLite/releases/latest/download/libv2ray.aar
+          curl -L -o ./V2rayNG/app/libs/libv2ray-sources.jar https://github.com/hiddify/AndroidLibXrayLite/releases/latest/download/libv2ray-sources.jar
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: "zulu"
+          java-version: 11
+
+      - name: Build
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: --no-daemon app:assembleDebug
+          build-root-directory: V2rayNG
+
+      - name: Upload Release
+        uses: softprops/action-gh-release@v1
+        if: ${{  success() }}
+        with:
+          # tag: ${{ github.ref_name }}
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          files: ./V2rayNG/app/build/outputs/apk/release/*.apk
+          prerelease: false
+          generate_release_notes: true
