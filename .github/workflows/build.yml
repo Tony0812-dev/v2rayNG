@@ -30,13 +30,13 @@ jobs:
         run: cd V2rayNG && chmod +x gradlew
 
       - name: Build with Gradle
-        run: cd V2rayNG && ./gradlew assembleDebug && tree
+        run: cd V2rayNG && ./gradlew assembleDebug
 
       - name: Upload Release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: main
           release_name: rel
-          files: ./V2rayNG/app/build/outputs/apk/debug/*.apk
+          files: ./V2rayNG/app/build/outputs/apk/prod/debug/*.apk
           prerelease: false
           generate_release_notes: true
