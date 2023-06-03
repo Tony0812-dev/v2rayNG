@@ -17,8 +17,8 @@ jobs:
 
       - name: Download latest lists
         run: |
-          curl -L -o ./V2rayNG/app/libs/libv2ray.aar https://github.com/hiddify/AndroidLibXrayLite/releases/latest/download/libv2ray.aar
-          curl -L -o ./V2rayNG/app/libs/libv2ray-sources.jar https://github.com/hiddify/AndroidLibXrayLite/releases/latest/download/libv2ray-sources.jar
+          curl -L -o ./V2rayNG/app/libs/libv2ray.aar https://github.com/Tony0812-dev/AndroidLibV2rayLite/releases/download/main/libv2ray.aar
+          curl -L -o ./V2rayNG/app/libs/libv2ray-sources.jar https://github.com/Tony0812-dev/AndroidLibV2rayLite/releases/download/main/libv2ray-sources.jar
 
       - name: Setup Java
         uses: actions/setup-java@v3
