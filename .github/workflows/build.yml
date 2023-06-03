@@ -26,19 +26,17 @@ jobs:
           distribution: "zulu"
           java-version: 11
 
-      - name: Build
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: --no-daemon app:assembleDebug
-          build-root-directory: V2rayNG
+      - name: Grant execute permission for gradlew
+        run: cd V2rayNG && chmod +x gradlew
+
+      - name: Build with Gradle
+        run: cd V2rayNG && ./gradlew build
 
       - name: Upload Release
         uses: softprops/action-gh-release@v1
-        if: ${{  success() }}
         with:
-          # tag: ${{ github.ref_name }}
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
+          tag_name: main
+          release_name: rel
           files: ./V2rayNG/app/build/outputs/apk/release/*.apk
           prerelease: false
           generate_release_notes: true
