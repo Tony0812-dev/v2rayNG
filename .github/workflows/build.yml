@@ -37,6 +37,6 @@ jobs:
         with:
           tag_name: main
           release_name: rel
-          files: ./V2rayNG/app/build/outputs/apk/release/*.apk
+          files: ./V2rayNG/app/build/outputs/apk/debug/*.apk
           prerelease: false
           generate_release_notes: true
